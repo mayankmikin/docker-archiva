@@ -10,6 +10,7 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
+ARG PORT 8080
 ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m
 # Add local scripts
 ADD files /tmp
