@@ -23,7 +23,7 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 	rm /tmp/setup.sh
 
 # Standard web ports exposted
-EXPOSE 8080/tcp
+EXPOSE $PORT/tcp
 
 HEALTHCHECK CMD /healthcheck.sh
 
