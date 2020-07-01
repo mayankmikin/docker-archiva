@@ -24,6 +24,7 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 	rm /tmp/setup.sh
 
 # Standard web ports exposted
+RUN echo defaultport:$PORT
 EXPOSE $PORT/tcp
 
 HEALTHCHECK CMD /healthcheck.sh
