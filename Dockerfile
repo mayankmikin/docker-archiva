@@ -41,3 +41,4 @@ STOPSIGNAL SIGINT
 
 # Use our custom entrypoint
 ENTRYPOINT [ "/entrypoint.sh" ]
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
