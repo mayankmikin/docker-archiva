@@ -27,7 +27,7 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 #RUN echo defaultport:$PORT
 #EXPOSE $PORT/tcp # used in heroku
 #EXPOSE 8080/tcp # used in local testing
-
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
 HEALTHCHECK CMD /healthcheck.sh
 
 # Switch to the archiva user
@@ -41,4 +41,4 @@ STOPSIGNAL SIGINT
 
 # Use our custom entrypoint
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+
