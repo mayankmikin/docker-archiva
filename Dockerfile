@@ -10,7 +10,7 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
-ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m
+ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m -Djetty.port=$PORT
 # Add local scripts
 ADD files /tmp
 
@@ -27,7 +27,9 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 #RUN echo defaultport:$PORT
 #EXPOSE $PORT/tcp # used in heroku
 #EXPOSE 8080/tcp # used in local testing
+
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+
 HEALTHCHECK CMD /healthcheck.sh
 
 # Switch to the archiva user
