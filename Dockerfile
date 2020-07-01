@@ -10,7 +10,6 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
-ENV PORT 8080
 ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m
 # Add local scripts
 ADD files /tmp
@@ -24,8 +23,10 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 	rm /tmp/setup.sh
 
 # Standard web ports exposted
-RUN echo defaultport:$PORT
-EXPOSE $PORT/tcp
+#ENV PORT 8080
+#RUN echo defaultport:$PORT
+#EXPOSE $PORT/tcp # used in heroku
+#EXPOSE 8080/tcp # used in local testing
 
 HEALTHCHECK CMD /healthcheck.sh
 
