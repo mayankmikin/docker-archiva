@@ -12,9 +12,10 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
-ARG PORT
+#ARG PORT
 #ENV PORT 3000
-ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m -Djetty.port=${PORT}
+ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m 
+#-Djetty.port=${PORT}
 
 # Add local scripts
 ADD files /tmp
@@ -29,9 +30,9 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 
 # Standard web ports exposted
 
-#RUN echo defaultport:$PORT
+RUN echo defaultport:$PORT
 #EXPOSE $PORT/tcp # used in heroku
-#EXPOSE 8080/tcp # used in local testing
+EXPOSE 8080/tcp # used in local testing
 
 
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi
