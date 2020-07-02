@@ -32,7 +32,9 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 
 RUN echo defaultport:$PORT
 #EXPOSE $PORT/tcp # used in heroku
-EXPOSE 8080/tcp # used in local testing
+# used in local testing
+EXPOSE 8080/tcp 
+
 
 
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi
