@@ -12,8 +12,8 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
-#ARG PORT=5000
-ENV PORT 3000
+ARG PORT
+#ENV PORT 3000
 ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m -Djetty.port=${PORT}
 
 # Add local scripts
