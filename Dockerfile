@@ -1,5 +1,7 @@
 FROM openjdk:8-jdk-alpine
-MAINTAINER Xetus OSS <xetusoss@xetus.com>
+MAINTAINER Mayank Verms <mayank.mikin@gmail.com>
+
+
 
 # Add the archiva user and group with a specific UID/GUI to ensure
 RUN addgroup --gid 1000 archiva &&\
@@ -10,7 +12,10 @@ RUN addgroup --gid 1000 archiva &&\
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 ARG BUILD_SNAPSHOT_RELEASE
-ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m -Djetty.http.port="$PORT" -Dserver.port="$PORT" -Djetty.port="$PORT" 
+#ARG PORT=5000
+ENV PORT 3000
+ENV JVM_EXTRA_OPTS -Xms256m -Xmx500m -Djetty.port=${PORT}
+
 # Add local scripts
 ADD files /tmp
 
@@ -23,13 +28,14 @@ RUN chmod +x /tmp/resource-retriever.sh &&\
 	rm /tmp/setup.sh
 
 # Standard web ports exposted
-#ENV PORT 8080
+
 #RUN echo defaultport:$PORT
 #EXPOSE $PORT/tcp # used in heroku
 #EXPOSE 8080/tcp # used in local testing
 
-CMD gunicorn --bind 0.0.0.0:$PORT wsgi
 
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+#RUN echo default_port_is:$PORT
 HEALTHCHECK CMD /healthcheck.sh
 
 # Switch to the archiva user
